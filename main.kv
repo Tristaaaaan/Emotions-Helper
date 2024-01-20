@@ -1,0 +1,623 @@
+<RoundedButton@Button>:
+    background_color: 0,0,0,0
+    background_normal:''
+    text_size:self.size
+    bold: True
+    valign:'middle'
+    halign:'center'
+    font_size:dp(20)
+    canvas.before:
+        Color:
+            rgba:(0,152/255,153/255,1)if self.state=='normal' else (0,.7,.7,1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(10)]
+
+
+#HistoryListButton
+<HistoryListButton@BoxLayout+Button>:
+    orientation:"vertical"
+    background_color: 0,0,0,0
+    text_size:self.size
+    font_size:dp(14)
+    size_hint_y:None
+    height:dp(35)
+    color:(1,1,1,1)
+    valign:'middle'
+    halign:'center'
+    padding:dp(5)
+    spacing:dp(5)
+    canvas.before:
+        Color:
+            rgba:(0.9,.9,.9,1)
+            #rgba: (57/255.0,177/255.0,204/255.0,255/255.0) if self.state=='normal' else (0.3,.8,.47,1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(10)]
+    BoxLayout:
+        id:row_box
+        size_hint:1,1
+        spacing:2
+        padding:2
+        orientation:'horizontal'
+
+        Label:
+            id:lbl_date
+            text:''
+            font_size:dp(12)
+            bold:True
+            text_size:self.size
+            halign:'left'
+            valign:'center'
+            size_hint:0.3,1
+            color:0,0,0,1
+        Label:
+            id:lbl_value1
+            text:''
+            font_size:dp(12)
+            text_size:self.size
+            halign:'left'
+            valign:'center'
+            size_hint:0.3,1
+            color:0,0,0,1
+
+<Homepage>:
+    size_hint:1,1
+    padding:0
+    spacing:0
+    orientation:"vertical"
+    canvas.before:
+        Color:
+            rgba:(1,1,1,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+    BoxLayout:
+        id:navigations
+        size_hint:1,None
+        height:dp(35)
+        padding:dp(2)
+        spacing:dp(1)
+        orientation:'horizontal'
+        canvas.before:
+            Color:
+                rgba:(1,1,1,1)
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        Label:
+            id:lbl_user
+            text:""
+            size_hint:1,1
+            font_size:dp(15)
+            text_size:self.size
+            halign:'left'
+            valign:'center'
+            color:(0,0,1,1)
+
+        Label:
+            id:lbl_location
+            text:""
+            size_hint:1,1
+            font_size:dp(15)
+            text_size:self.size
+            halign:'right'
+            valign:'center'
+            color:(0,152/255,153/255,1)
+
+    BoxLayout:
+        id:text_area
+        size_hint:1,0.60
+        padding:5
+        orientation:'horizontal'
+        canvas.before:
+            Color:
+                rgba:(1,1,1,1)
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        TextInput:
+            id:txt_output
+            multiline:True
+            size_hint:1,1
+            text:''
+            hint_text:"Press & Record..."
+            font_size:dp(15)
+
+    AnchorLayout:
+        orientation:"vertical"
+        anchor_x:"center"
+        anchor_y:"center"
+        size_hint:1,0.20
+
+        BoxLayout:
+            id:record_btn_area
+            size_hint:None,None
+            width:dp(120)
+            height:dp(120)
+            padding:0
+            orientation:'vertical'
+
+    BoxLayout:
+        id:navigations
+        size_hint:1,None
+        height:50
+        padding:5
+        spacing:10
+        orientation:'horizontal'
+        canvas.before:
+            Color:
+                rgba:(1,1,1,1)
+            Rectangle:
+                pos:self.pos
+                size:self.size
+
+        RoundedButton:
+            id: btn_history
+            args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+            text: "History"
+            bold: True
+            font_size: dp(14)
+            size_hint:dp(0.20),dp(1)
+            on_press: root._parent.history()
+
+        BoxLayout:
+            size_hint:0.1,1
+
+        RoundedButton:
+            id: btn_user
+            args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+            text: "Profile"
+            bold: True
+            font_size: dp(14)
+            size_hint:dp(0.20),dp(1)
+            on_press: root._parent.profile()
+
+<History>:
+    size_hint:1,1
+    orientation:'vertical'
+    canvas.before:
+        Color:
+            rgba:(.9,.9,.9,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+    BoxLayout:
+        id:history_page
+        size_hint:1,1
+        orientation:'vertical'
+        padding:5
+        spacing:5
+        canvas.before:
+            Color:
+                rgba:(.9,.9,.9,1)
+            Rectangle:
+                pos:self.size
+                size:self.size
+        BoxLayout:
+            orientation:"horizontal"
+            size_hint:1,None
+            height:40
+            padding:8,0
+            Label:
+                text:"Date/Time"
+                font_size:dp(12)
+                color:(0,0,0,1)
+                text_size:self.size
+                halign:'left'
+                valign:'bottom'
+                bold:True
+                size_hint:.3,1
+            Label:
+                text:"Emotional Result"
+                font_size:dp(12)
+                color:(0,0,0,1)
+                text_size:self.size
+                halign:'left'
+                valign:'bottom'
+                bold:True
+                size_hint:.3,1
+        BoxLayout:
+            size_hint:1,1
+            orientation:'vertical'
+            spacing:4
+            canvas.before:
+                Color:
+                    rgba:(1,1,1,1)
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                size:self.size
+                bar_width:10
+                bar_color: 0, 0, 0, .21   # red
+                effect_cls: "ScrollEffect"
+                scroll_type: ['bars', 'content']
+                GridLayout:
+                    id:row_task_box
+                    height:self.minimum_height
+                    cols:1
+                    size_hint_y: None
+                    orientation: 'tb-lr'#'vertical'
+                    spacing:1
+                    padding:1
+
+        BoxLayout:
+            size_hint:1,None
+            height:40
+            RoundedButton:
+                id: btn_home
+                args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+                text: "Homepage"
+                bold: True
+                font_size: dp(14)
+                size_hint:dp(0.20),dp(1)
+                height: 39
+                on_press: root._parent.homepage()
+
+<UserRegister>:
+    size_hint:1,1
+    orientation:'vertical'
+    canvas.before:
+        Color:
+            rgba:(.9,.9,.9,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+    BoxLayout:
+        id:register_page
+        size_hint:dp(1),dp(1)
+        orientation:'vertical'
+        padding:15
+        spacing:5
+        canvas.before:
+            Color:
+                rgba:(.9,.9,.9,1)
+            Rectangle:
+                pos:self.size
+                size:self.size
+        BoxLayout:
+            size_hint:1,0.1
+            # height:40
+
+            Label:
+                id:form_heading
+                text:"User Record"
+                font_size:dp(17)
+                bold:True
+                text_size:self.size
+                halign:'center'
+                valign:'top'
+                color:(0,0,0,1)
+        BoxLayout:
+            size_hint:dp(1),dp(0.25)
+            # height:0
+            padding:1
+            spacing:2
+            orientation:"vertical"
+            Label:
+                id:form_mesg
+                text:""
+                font_size:dp(15)
+                text_size:self.size
+                halign:'center'
+                valign:'top'
+                color:(0.2,0.2,1,1)
+            Label:
+                id:lbl_username
+                text:"Username:"
+                size_hint:1,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint:dp(1), dp(1)
+                height:dp(55)
+                padding:5
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius:[dp(10)]
+                TextInput:
+                    id:username
+                    text:''
+
+                    multiline:False
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size:dp(15)
+
+            Label:
+                id:lbl_location
+                text:"Location:"
+                size_hint:1,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint:dp(1),dp(1)
+                height:33
+                padding:0
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius:[4]
+                TextInput:
+                    id:user_location
+                    text:''
+                    multiline:False
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size:dp(15)
+            Label:
+                id:lbl_other_info
+                text:"Other Info:"
+                size_hint:1,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint:dp(1),dp(1)
+                height:33
+                padding:0
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius:[4]
+                TextInput:
+                    id:user_info
+                    text:''
+                    multiline:False
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size:dp(15)
+
+            Label:
+                id:txt_notify
+                text:''
+                size_hint:1,None
+                height:40
+            RoundedButton:
+                id: btn_register
+                args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+                text: "Register"
+                bold: True
+                font_size: dp(14)
+                size_hint_y: None
+                height: 35
+                on_press: root.register()
+
+        BoxLayout:
+            size_hint: 1,.2
+
+
+<UserProfile>:
+    size_hint:1,1
+    orientation:'vertical'
+    canvas.before:
+        Color:
+            rgba:(.9,.9,.9,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+    BoxLayout:
+        id:register_page
+        size_hint:1,1
+        orientation:'vertical'
+        padding:15
+        spacing:5
+        canvas.before:
+            Color:
+                rgba:(.9,.9,.9,1)
+            Rectangle:
+                pos:self.size
+                size:self.size
+        BoxLayout:
+            size_hint:1,0.1
+            # height:40
+
+            Label:
+                id:form_heading
+                text:"User Profile"
+                font_size:dp(17)
+                bold:True
+                text_size:self.size
+                halign:'center'
+                valign:'top'
+                color:(0,0,0,1)
+        BoxLayout:
+            size_hint:1,1
+            # height:0
+            padding:1
+            spacing:2
+            orientation:"vertical"
+            Label:
+                id:form_mesg
+                text:""
+                font_size:dp(15)
+                text_size:self.size
+                halign:'center'
+                valign:'top'
+                color:(0.2,0.2,1,1)
+            Label:
+                id:lbl_username
+                text:"Username:"
+                size_hint:1,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint:dp(1),dp(1)
+                height:33
+                padding:0
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius:[dp(4)]
+                TextInput:
+                    id:username
+                    text:''
+                    multiline:False
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size:dp(15)
+
+            Label:
+                id:lbl_location
+                text:"Location:"
+                size_hint:1,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint:dp(1),dp(1)
+                height:33
+                padding:0
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius:[4]
+                TextInput:
+                    id:user_location
+                    text:''
+                    height:dp(10)
+                    multiline:False
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size:dp(15)
+            Label:
+                id:lbl_other_info
+                text:"Other Info:"
+                size_hint:1,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint:dp(1),dp(1)
+                height:33
+                padding:0
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius:[4]
+                TextInput:
+                    id:user_info
+                    text:''
+                    multiline:False
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size:dp(15)
+
+            Label:
+                id:txt_id
+                text:''
+                size_hint:1,None
+                height:40
+                color:(.9,.9,.9,1)
+
+            BoxLayout:
+                size_hint_x:dp(1)
+                size_hint_y:dp(0.5)
+                height: dp(40)
+                padding:1
+                spacing:5
+                orientation:"horizontal"
+
+                RoundedButton:
+                    id: btn_cancel
+                    args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [dp(7)]}
+                    text: "Cancel"
+                    bold: True
+                    color:1,0,0,1
+                    font_size: dp(14)
+                    on_press: root.call_homepage(self)
+
+                RoundedButton:
+                    id: btn_update
+                    args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [dp(7)]}
+                    text: "Update"
+                    bold: True
+                    font_size: dp(14)
+                    on_press: root.update_profile()
+
+
+        BoxLayout:
+            size_hint: 1,.2
+
+
+<Main>:
+    size_hint:1,1
+    padding:0
+    spacing:0
+    orientation:"vertical"
+    canvas.before:
+        Color:
+            rgba:(1,1,1,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+    BoxLayout:
+        id:header
+        size_hint:1,None
+        height:dp(40)
+        padding:5
+        orientation:'horizontal'
+        canvas.before:
+            Color:
+                #rgba:(29/255.0,26/255.0,73/255.0,1)
+                rgba:(0,152/255,153/255,1)
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        Label:
+            text:'Emotion Recognition'
+            font_size:dp(18)
+            bold:True
+            text_size:self.size
+            halign:'center'
+            valign:'center'
+            color:(1,1,1,1)
+
+    BoxLayout:
+        id:dynamic_box
+        size_hint:1,1
+        padding:0
+        orientation:'vertical'
