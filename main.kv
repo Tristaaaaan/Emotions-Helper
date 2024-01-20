@@ -64,116 +64,92 @@
             color:0,0,0,1
 
 <Homepage>:
-    size_hint:1,1
-    padding:0
-    spacing:0
-    orientation:"vertical"
-    canvas.before:
-        Color:
-            rgba:(1,1,1,1)
-        Rectangle:
-            pos:self.pos
-            size:self.size
-    BoxLayout:
-        id:navigations
-        size_hint:1,None
-        height:dp(35)
-        padding:dp(2)
-        spacing:dp(1)
-        orientation:'horizontal'
-        canvas.before:
-            Color:
-                rgba:(1,1,1,1)
-            Rectangle:
-                pos:self.pos
-                size:self.size
-        Label:
-            id:lbl_user
-            text:""
-            size_hint:1,1
-            font_size:dp(15)
-            text_size:self.size
-            halign:'left'
-            valign:'center'
-            color:(0,0,1,1)
+    MDBoxLayout:
+        size_hint: 1, 1
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        MDBoxLayout:
+            size_hint_x: .9
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            orientation: 'vertical'
+            spacing: 10
+            MDBoxLayout:
+                size_hint_x: .9
+                adaptive_height: True
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                MDLabel:
+                    id:lbl_user
+                    text:""
+                    font_size:dp(15)
+                    text_size:self.size
+                    halign:'left'
+                    theme_text_color: 'Custom'
+                    valign:'center'
+                    text_color: [0,152/255,153/255,1]
 
-        Label:
-            id:lbl_location
-            text:""
-            size_hint:1,1
-            font_size:dp(15)
-            text_size:self.size
-            halign:'right'
-            valign:'center'
-            color:(0,152/255,153/255,1)
+                MDLabel:
+                    id:lbl_location
+                    text:""
+                    theme_text_color: 'Custom'
+                    font_size:dp(15)
+                    text_size:self.size
+                    halign:'right'
+                    valign:'center'
+                    text_color: [0,152/255,153/255,1]
 
-    BoxLayout:
-        id:text_area
-        size_hint:1,0.60
-        padding:5
-        orientation:'horizontal'
-        canvas.before:
-            Color:
-                rgba:(1,1,1,1)
-            Rectangle:
-                pos:self.pos
-                size:self.size
-        TextInput:
-            id:txt_output
-            multiline:True
-            size_hint:1,1
-            text:''
-            hint_text:"Press & Record..."
-            font_size:dp(15)
+            MDBoxLayout:
+                id:text_area
+                size_hint: 1, .8
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                MDCard:
+                    radius: [20, 20, 20, 20]
+                    md_bg_color: 'white'
+                    ScrollView:
+                        size_hint: 1, 1
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+                        MDLabel:
+                            id: txt_output
+                            halign: 'left'
+                            padding: 20
+                            theme_text_color: 'Custom'
+                            text_color: 'black'
+                            size_hint_y: None
+                            height: self.texture_size[1]
 
-    AnchorLayout:
-        orientation:"vertical"
-        anchor_x:"center"
-        anchor_y:"center"
-        size_hint:1,0.20
+            MDBoxLayout:
+                id:text_area
+                size_hint: 1, .1
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                spacing: 10
+                padding: 20
+                MDIconButton:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'history'
+                    text_color: [0,152/255,153/255,1]
+                    theme_text_color: 'Custom'
 
-        BoxLayout:
-            id:record_btn_area
-            size_hint:None,None
-            width:dp(120)
-            height:dp(120)
-            padding:0
-            orientation:'vertical'
+                    on_press:
+                        root._parent.history()
 
-    BoxLayout:
-        id:navigations
-        size_hint:1,None
-        height:50
-        padding:5
-        spacing:10
-        orientation:'horizontal'
-        canvas.before:
-            Color:
-                rgba:(1,1,1,1)
-            Rectangle:
-                pos:self.pos
-                size:self.size
+                MDIconButton:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'account'
+                    text_color: [0, 152/255, 153/255, 1]
+                    theme_text_color: 'Custom'
+                    on_press:
+                        root._parent.profile()
 
-        RoundedButton:
-            id: btn_history
-            args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
-            text: "History"
-            bold: True
-            font_size: dp(14)
-            size_hint:dp(0.20),dp(1)
-            on_press: root._parent.history()
+                RoundedButton:
+                    id: btn_record
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+                    text: "Record"
+                    bold: True
+                    font_size: dp(14)
+                    size_hint_y: None
+                    height: 35
+                    on_press: root.start_recording()
 
-        BoxLayout:
-            size_hint:0.1,1
 
-        RoundedButton:
-            id: btn_user
-            args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
-            text: "Profile"
-            bold: True
-            font_size: dp(14)
-            size_hint:dp(0.20),dp(1)
-            on_press: root._parent.profile()
 
 <History>:
     size_hint:1,1
@@ -262,143 +238,61 @@
                 on_press: root._parent.homepage()
 
 <UserRegister>:
-    size_hint:1,1
-    orientation:'vertical'
-    canvas.before:
-        Color:
-            rgba:(.9,.9,.9,1)
-        Rectangle:
-            pos:self.pos
-            size:self.size
 
-    BoxLayout:
+    MDBoxLayout:
         id:register_page
-        size_hint:dp(1),dp(1)
-        orientation:'vertical'
-        padding:15
-        spacing:5
-        canvas.before:
-            Color:
-                rgba:(.9,.9,.9,1)
-            Rectangle:
-                pos:self.size
-                size:self.size
-        BoxLayout:
-            size_hint:1,0.1
-            # height:40
+        size_hint: .9, 1
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        orientation: 'vertical'
 
-            Label:
-                id:form_heading
-                text:"User Record"
-                font_size:dp(17)
-                bold:True
-                text_size:self.size
-                halign:'center'
-                valign:'top'
-                color:(0,0,0,1)
-        BoxLayout:
-            size_hint:dp(1),dp(0.25)
-            # height:0
-            padding:1
-            spacing:2
-            orientation:"vertical"
-            Label:
-                id:form_mesg
-                text:""
-                font_size:dp(15)
-                text_size:self.size
-                halign:'center'
-                valign:'top'
-                color:(0.2,0.2,1,1)
-            Label:
-                id:lbl_username
-                text:"Username:"
-                size_hint:1,1
-                font_size:dp(17)
-                text_size:self.size
-                halign:'left'
-                valign:'center'
-                color:(0,0,0,1)
-            BoxLayout:
-                size_hint:dp(1), dp(1)
-                height:dp(55)
-                padding:5
-                canvas.before:
-                    Color:
-                        rgba:(1,1,1,1)
-                    RoundedRectangle:
-                        pos:self.pos
-                        size:self.size
-                        radius:[dp(10)]
-                TextInput:
-                    id:username
-                    text:''
+        MDBoxLayout:
+            size_hint: 1, .3
 
-                    multiline:False
-                    background_color: 0,0,0,0
-                    foreground_color: 0,0,0,1
-                    font_size:dp(15)
+        MDBoxLayout:
+            size_hint: 1, .5
+            spacing: 15
+            orientation:'vertical'
+            pos_hint: {'center_x': .5, 'center_y': .5}
 
-            Label:
-                id:lbl_location
-                text:"Location:"
-                size_hint:1,1
-                font_size:dp(17)
-                text_size:self.size
-                halign:'left'
-                valign:'center'
-                color:(0,0,0,1)
-            BoxLayout:
-                size_hint:dp(1),dp(1)
-                height:33
-                padding:0
-                canvas.before:
-                    Color:
-                        rgba:(1,1,1,1)
-                    RoundedRectangle:
-                        pos:self.pos
-                        size:self.size
-                        radius:[4]
-                TextInput:
-                    id:user_location
-                    text:''
-                    multiline:False
-                    background_color: 0,0,0,0
-                    foreground_color: 0,0,0,1
-                    font_size:dp(15)
-            Label:
-                id:lbl_other_info
-                text:"Other Info:"
-                size_hint:1,1
-                font_size:dp(17)
-                text_size:self.size
-                halign:'left'
-                valign:'center'
-                color:(0,0,0,1)
-            BoxLayout:
-                size_hint:dp(1),dp(1)
-                height:33
-                padding:0
-                canvas.before:
-                    Color:
-                        rgba:(1,1,1,1)
-                    RoundedRectangle:
-                        pos:self.pos
-                        size:self.size
-                        radius:[4]
-                TextInput:
-                    id:user_info
-                    text:''
-                    multiline:False
-                    background_color: 0,0,0,0
-                    foreground_color: 0,0,0,1
-                    font_size:dp(15)
+            MDTextField:
+                id: username
+                mode: "fill"
+                theme_text_color: 'Custom'
+                text_color: 'black'
+                line_color_normal: 'black'
+                line_color_focus: 'black'     
+                hint_text_color_normal: 'black'     
+                hint_text_color_focus: 'black'
+                text_color_focus: 'black'           
+                hint_text: "Username"
+                font_size: "15sp"
 
-            Label:
-                id:txt_notify
-                text:''
-                size_hint:1,None
-                height:40
+            MDTextField:
+                id: user_location
+                mode: "fill"
+                theme_text_color: 'Custom'
+                text_color: 'black'
+                line_color_normal: 'black'
+                line_color_focus: 'black'     
+                hint_text_color_normal: 'black'     
+                hint_text_color_focus: 'black'
+                text_color_focus: 'black'           
+                hint_text: "Location"
+                font_size: "15sp"
+
+            MDTextField:
+                id: user_info
+                mode: "fill"
+                theme_text_color: 'Custom'
+                text_color: 'black'
+                line_color_normal: 'black'
+                line_color_focus: 'black'     
+                hint_text_color_normal: 'black'     
+                hint_text_color_focus: 'black'
+                text_color_focus: 'black'           
+                hint_text: "Other Info"
+                font_size: "15sp"
+
             RoundedButton:
                 id: btn_register
                 args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
@@ -408,179 +302,91 @@
                 size_hint_y: None
                 height: 35
                 on_press: root.register()
-
-        BoxLayout:
-            size_hint: 1,.2
-
+                        
+        MDBoxLayout:
+            size_hint: 1, .3
 
 <UserProfile>:
-    size_hint:1,1
-    orientation:'vertical'
-    canvas.before:
-        Color:
-            rgba:(.9,.9,.9,1)
-        Rectangle:
-            pos:self.pos
-            size:self.size
 
-    BoxLayout:
+    MDBoxLayout:
         id:register_page
-        size_hint:1,1
-        orientation:'vertical'
-        padding:15
-        spacing:5
-        canvas.before:
-            Color:
-                rgba:(.9,.9,.9,1)
-            Rectangle:
-                pos:self.size
-                size:self.size
-        BoxLayout:
-            size_hint:1,0.1
-            # height:40
+        size_hint: .9, 1
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        orientation: 'vertical'
 
-            Label:
-                id:form_heading
-                text:"User Profile"
-                font_size:dp(17)
-                bold:True
-                text_size:self.size
-                halign:'center'
-                valign:'top'
-                color:(0,0,0,1)
-        BoxLayout:
-            size_hint:1,1
-            # height:0
-            padding:1
-            spacing:2
-            orientation:"vertical"
-            Label:
-                id:form_mesg
-                text:""
-                font_size:dp(15)
-                text_size:self.size
-                halign:'center'
-                valign:'top'
-                color:(0.2,0.2,1,1)
-            Label:
-                id:lbl_username
-                text:"Username:"
-                size_hint:1,1
-                font_size:dp(17)
-                text_size:self.size
-                halign:'left'
-                valign:'center'
-                color:(0,0,0,1)
-            BoxLayout:
-                size_hint:dp(1),dp(1)
-                height:33
-                padding:0
-                canvas.before:
-                    Color:
-                        rgba:(1,1,1,1)
-                    RoundedRectangle:
-                        pos:self.pos
-                        size:self.size
-                        radius:[dp(4)]
-                TextInput:
-                    id:username
-                    text:''
-                    multiline:False
-                    background_color: 0,0,0,0
-                    foreground_color: 0,0,0,1
-                    font_size:dp(15)
+        MDBoxLayout:
+            size_hint: 1, .3
 
-            Label:
-                id:lbl_location
-                text:"Location:"
-                size_hint:1,1
-                font_size:dp(17)
-                text_size:self.size
-                halign:'left'
-                valign:'center'
-                color:(0,0,0,1)
-            BoxLayout:
-                size_hint:dp(1),dp(1)
-                height:33
-                padding:0
-                canvas.before:
-                    Color:
-                        rgba:(1,1,1,1)
-                    RoundedRectangle:
-                        pos:self.pos
-                        size:self.size
-                        radius:[4]
-                TextInput:
-                    id:user_location
-                    text:''
-                    height:dp(10)
-                    multiline:False
-                    background_color: 0,0,0,0
-                    foreground_color: 0,0,0,1
-                    font_size:dp(15)
-            Label:
-                id:lbl_other_info
-                text:"Other Info:"
-                size_hint:1,1
-                font_size:dp(17)
-                text_size:self.size
-                halign:'left'
-                valign:'center'
-                color:(0,0,0,1)
-            BoxLayout:
-                size_hint:dp(1),dp(1)
-                height:33
-                padding:0
-                canvas.before:
-                    Color:
-                        rgba:(1,1,1,1)
-                    RoundedRectangle:
-                        pos:self.pos
-                        size:self.size
-                        radius:[4]
-                TextInput:
-                    id:user_info
-                    text:''
-                    multiline:False
-                    background_color: 0,0,0,0
-                    foreground_color: 0,0,0,1
-                    font_size:dp(15)
+        MDBoxLayout:
+            size_hint: 1, .5
+            spacing: 15
+            orientation:'vertical'
+            pos_hint: {'center_x': .5, 'center_y': .5}
 
-            Label:
-                id:txt_id
-                text:''
-                size_hint:1,None
-                height:40
-                color:(.9,.9,.9,1)
+            MDTextField:
+                id: username
+                mode: "fill"
+                theme_text_color: 'Custom'
+                text_color: 'black'
+                line_color_normal: 'black'
+                line_color_focus: 'black'     
+                hint_text_color_normal: 'black'     
+                hint_text_color_focus: 'black'
+                text_color_focus: 'black'           
+                hint_text: "Username"
+                font_size: "15sp"
 
-            BoxLayout:
-                size_hint_x:dp(1)
-                size_hint_y:dp(0.5)
-                height: dp(40)
-                padding:1
-                spacing:5
-                orientation:"horizontal"
+            MDTextField:
+                id: user_location
+                mode: "fill"
+                theme_text_color: 'Custom'
+                text_color: 'black'
+                line_color_normal: 'black'
+                line_color_focus: 'black'     
+                hint_text_color_normal: 'black'     
+                hint_text_color_focus: 'black'
+                text_color_focus: 'black'           
+                hint_text: "Location"
+                font_size: "15sp"
 
-                RoundedButton:
-                    id: btn_cancel
-                    args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [dp(7)]}
-                    text: "Cancel"
-                    bold: True
-                    color:1,0,0,1
-                    font_size: dp(14)
-                    on_press: root.call_homepage(self)
+            MDTextField:
+                id: user_info
+                mode: "fill"
+                theme_text_color: 'Custom'
+                text_color: 'black'
+                line_color_normal: 'black'
+                line_color_focus: 'black'     
+                hint_text_color_normal: 'black'     
+                hint_text_color_focus: 'black'
+                text_color_focus: 'black'           
+                hint_text: "Other Info"
+                font_size: "15sp"
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                MDIconButton:
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    icon: 'arrow-left'
+                    text_color: [0, 152/255, 153/255, 1]
+                    theme_text_color: 'Custom'
+                    on_press:
+                        root.back_to_home(self)
 
                 RoundedButton:
                     id: btn_update
-                    args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [dp(7)]}
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
                     text: "Update"
                     bold: True
                     font_size: dp(14)
+                    size_hint_y: None
+                    height: 35
                     on_press: root.update_profile()
+                        
+        MDBoxLayout:
+            size_hint: 1, .3
 
-
-        BoxLayout:
-            size_hint: 1,.2
 
 
 <Main>:

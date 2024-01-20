@@ -2,6 +2,7 @@
 import sqlite3
 import datetime
 
+
 class EmotionDatabase:
     def __init__(self, db_name='userdata.db'):
         self.db_connection = sqlite3.connect(db_name)
@@ -35,7 +36,7 @@ class EmotionDatabase:
                 VALUES (?, ?, ?)
             ''', (username, location, other_info))
             self.db_connection.commit()
-            return True 
+            return True
         except Exception as e:
             # print(f"Error inserting user data: {e}")
             return False
@@ -54,10 +55,11 @@ class EmotionDatabase:
             # Handle the exception (print or log it)
             print(f"Error updating user data: {e}")
             return False
-    
+
     def get_any_user_data(self):
         # Retrieve the last added user data
-        self.db_cursor.execute('''SELECT * FROM users WHERE username IS NOT NULL ORDER BY id DESC LIMIT 1''')
+        self.db_cursor.execute(
+            '''SELECT * FROM users WHERE username IS NOT NULL ORDER BY id DESC LIMIT 1''')
         return self.db_cursor.fetchone()
 
     def get_history(self):
