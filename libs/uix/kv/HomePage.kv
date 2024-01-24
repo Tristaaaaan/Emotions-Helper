@@ -1,0 +1,130 @@
+<Homepage>:
+    name: 'homepage'
+    size_hint:1,1
+    padding: [0, 10, 0, 10]
+    spacing: 10
+    orientation:"vertical"
+    canvas.before:
+        Color:
+            rgba:(.9,.9,.9,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+    # BoxLayout for Information
+    BoxLayout:
+        id:navigations
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        size_hint: .9, .1
+        height: self.minimum_height
+        orientation:'horizontal'
+        canvas.before:
+            Color:
+                rgba:(.9, .9 ,.9, 1)
+            Rectangle:
+                pos:self.pos
+                size:self.size
+
+        Label:
+            id:lbl_user
+            text:""
+            size_hint:1,1
+            font_name: 'assets/fonts/Lexend-Medium.ttf'
+            font_size: '16sp'
+            text_size:self.size
+            
+            halign:'left'
+            valign:'center'
+            color: 'black'
+
+        Label:
+            id:lbl_location
+            text:""
+            size_hint:1,1
+            font_size: '14sp'
+            font_name: 'assets/fonts/Lexend-Medium.ttf'
+            text_size:self.size
+            halign:'right'
+            valign:'center'
+            color: 'black'
+
+    # BoxLayout for Content
+    BoxLayout:
+        id:text_area
+        size_hint: .9, 1
+        padding: 10
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        canvas.before:
+            Color:
+                rgba:(1, 1, 1, 1)
+            RoundedRectangle:
+                pos:self.pos
+                size:self.size
+                radius: [10]
+        ScrollView:
+            
+            size_hint: .9, 1
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            Label:
+                id: txt_output
+                halign: 'left'
+                color: 'black'
+                font_size: '16sp'
+                font_name: 'assets/fonts/Lexend-Regular.ttf'
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+
+    # BoxLayout for Buttons
+    BoxLayout:
+        size_hint:.9, None
+        spacing:10
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        orientation:'vertical'
+        height: self.minimum_height
+        canvas.before:
+            Color:
+                rgba:(.9,.9,.9,1)
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        HighlightRoundedButton:
+            id: btn_record
+            args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+            text: "Record"
+            bold: True
+            font_size: dp(14)
+            size_hint: 1, None
+            on_press: root.start_recording()
+            text_size: self.width, None
+            
+        BoxLayout:
+            size_hint: 1, None
+            spacing:10
+            height: self.minimum_height
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            orientation:'horizontal'
+            canvas.before:
+                Color:
+                    rgba:(45,42,1,1)
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+
+            RoundedButton:
+                id: btn_history
+                args: {'normal': (25/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+                text: "History"
+                bold: True
+                font_size: dp(14)
+                size_hint: 1, None
+                on_press: root._parent.history()
+
+            RoundedButton:
+                id: btn_user
+                args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+                text: "Profile"
+                bold: True
+                font_size: dp(14)
+                size_hint: 1, None
+                on_press: root._parent.profile()

@@ -1,0 +1,133 @@
+#HistoryListButton
+<HistoryListButton@BoxLayout+Button>:
+    orientation:"vertical"
+    background_color: 0,0,0,0
+    text_size:self.size
+    font_size:dp(14)
+    size_hint_y:None
+    height:dp(35)
+    color:(1,1,1,1)
+    valign:'middle'
+    halign:'center'
+    padding:dp(5)
+    spacing:dp(5)
+    canvas.before:
+        Color:
+            rgba:(0.9,.9,.9,1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(10)]
+    BoxLayout:
+        id:row_box
+        size_hint:1,1
+        spacing:2
+        padding:2
+        orientation:'horizontal'
+
+        Label:
+            id:lbl_date
+            text:''
+            font_size:dp(12)
+            bold:True
+            text_size:self.size
+            font_name: 'assets/fonts/Lexend-Regular.ttf'
+            halign:'left'
+            valign:'center'
+            size_hint:0.3,1
+            color:0,0,0,1
+        Label:
+            id:lbl_value1
+            text:''
+            font_size:dp(12)
+            font_name: 'assets/fonts/Lexend-Regular.ttf'
+            text_size:self.size
+            halign:'center'
+            valign:'center'
+            size_hint:0.3,1
+            color:0,0,0,1
+
+<History>:
+    size_hint:1,1
+    orientation:'vertical'
+    padding: [0, 10, 0, 10]
+    spacing: 10
+    canvas.before:
+        Color:
+            rgba:(.9,.9,.9,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+    # BoxLayout for Labels
+    BoxLayout:
+        id:history_page
+        size_hint: .9, .1
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        orientation:'horizontal'
+        canvas.before:
+            Color:
+                rgba:(65,.9,.9,1)
+            Rectangle:
+                pos:self.size
+                size:self.size
+        Label:
+            text:"Date & Time"
+            font_size: '14sp'
+            color:(0,0,0,1)
+            font_name: 'assets/fonts/Lexend-Medium.ttf'
+            text_size:self.size
+            halign:'center'
+            valign:'center'
+            bold:True
+        Label:
+            text:"Emotional Result"
+            font_size: '14sp'
+            color:(0,0,0,1)
+            font_name: 'assets/fonts/Lexend-Medium.ttf'
+            text_size:self.size
+            halign:'center'
+            valign:'center'
+            bold:True
+
+    # BoxLayout for Contents
+    BoxLayout:
+        size_hint: .9, 1
+        orientation:'vertical'
+        spacing: 10
+        padding: 10
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        canvas.before:
+            Color:
+                rgba:(1,1,1,1)
+            RoundedRectangle:
+                pos:self.pos
+                size:self.size
+                radius: [15]
+
+        ScrollView:
+            size: self.size
+            GridLayout:
+                id:row_task_box
+                height:self.minimum_height
+                cols: 1
+                size_hint_y: None
+                orientation: 'tb-lr'#'vertical'
+                spacing: 5
+                padding:1
+
+    #BoxLayout for Button
+    BoxLayout:
+        size_hint:.9, None
+        height: self.minimum_height
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        RoundedButton:
+            id: btn_home
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+            text: "Homepage"
+            bold: True
+            font_size: dp(14)
+            adaptive_height: True
+            size_hint: 1, None
+            on_press: root._parent.homepage()

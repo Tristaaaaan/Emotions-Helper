@@ -1,0 +1,188 @@
+<UserRegister>:
+    size_hint:1,1
+    orientation:'vertical'
+    canvas.before:
+        Color:
+            rgba:(.9,.9,.9,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+    BoxLayout:
+        id:register_page
+        size_hint: 1, 1
+        orientation:'vertical'
+        padding:15
+        canvas.before:
+            Color:
+                rgba:(.9,.9,.9,1)
+            Rectangle:
+                pos:self.size
+                size:self.size
+
+        # Header
+        BoxLayout:
+            size_hint:1, None
+            Label:
+                id:form_heading
+                text:"Profile"
+                font_size: '24sp'
+                bold:True
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+                
+        # Contents
+        BoxLayout:
+            size_hint: 1, 1
+            spacing: 10
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            orientation:"vertical"
+            height: self.minimum_height
+            canvas.before:
+                Color:
+                    rgba:(.9,.9,.9,1)
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+            BoxLayout:
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                size_hint: 1, None
+                height: dp(50)
+                canvas.before:
+                    Color:
+                        rgba:(.9,.9,.9,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius: [10]
+                Label:
+                    id:form_mesg
+                    text:""
+                    font_size: '15sp'
+                    text_size:self.size
+                    font_name: 'assets/fonts/Lexend-Regular.ttf'
+                    halign:'center'
+                    valign:'center'
+                    color:(0.2,0.2,1,1)
+            Label:
+                id:lbl_username
+                text:"Username"
+                size_hint: .9,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint: 1, None
+                height: dp(50)
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius: [10]
+                TextInput:
+                    id:username
+                    text:''
+                    font_name: 'assets/fonts/Lexend-Regular.ttf'
+                    size_hint_y: None 
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    multiline:False
+                    height: self.minimum_height  
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size: '15sp'
+                    cursor_color: 'black'
+
+            Label:
+                id:lbl_location
+                text:"Location"
+                size_hint:1,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint:1,None
+                height: dp(50)
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius: [10]
+                TextInput:
+                    id:user_location
+                    text:''
+                    font_name: 'assets/fonts/Lexend-Regular.ttf'
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    multiline:False
+                    size_hint_y: None 
+                    cursor_color: 'black'
+                    height: self.minimum_height  
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size: '15sp'
+            Label:
+                id:lbl_other_info
+                text:"Other Info"
+                size_hint:.9,1
+                font_size:dp(17)
+                text_size:self.size
+                halign:'left'
+                valign:'center'
+                color:(0,0,0,1)
+            BoxLayout:
+                size_hint: 1, None
+                height: dp(50)
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                canvas.before:
+                    Color:
+                        rgba:(1,1,1,1)
+                    RoundedRectangle:
+                        pos:self.pos
+                        size:self.size
+                        radius: [10]
+                TextInput:
+                    id:user_info
+                    text:''
+                    font_name: 'assets/fonts/Lexend-Regular.ttf'
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    multiline:False
+                    cursor_color: 'black'
+                    size_hint_y: None 
+                    height: self.minimum_height  
+                    background_color: 0,0,0,0
+                    foreground_color: 0,0,0,1
+                    font_size: '15sp'
+
+            Label:
+                id:txt_notify
+                text:''
+                size_hint:1,None
+                height:40
+
+            BoxLayout:
+                
+                size_hint: 1, 1
+                pos_hint: {'center_x': .5, 'center_y': .5}                
+                RoundedButton:
+                    id: btn_register
+                    args: {'normal': (57/255.0, 177/255.0, 204/255.0, 255/255.0), 'down': (.12, .32, .54, 1), 'size': self.size, 'pos': self.pos, 'radius': [7]}
+                    text: "Register"
+                    bold: True
+                    font_size: dp(14)
+                    adaptive_height: True
+                    size_hint: 1, None
+                    on_press: root.register()
+
+        BoxLayout:
+            size_hint: 1, .1
